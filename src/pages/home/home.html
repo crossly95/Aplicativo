@@ -16,23 +16,9 @@
 </ion-header>
 <ion-content padding>
   <ion-card>
-    <ion-card-header>
-      Header
-    </ion-card-header>
-    <ion-card-content>
-      The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <img src="assets/img/prueba.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
-        Nine Inch Nails Live
-        </ion-card-title>
-      <p>
-        The most popular industrial group ever, and largely
-        responsible for bringing the music to a mass audience.
-      </p>
+    <ion-card-content *ngFor="let user of user">
+      <h1>{{ user.name }}</h1>
+      <h1>{{ user.price }}</h1>
     </ion-card-content>
   </ion-card>
 
