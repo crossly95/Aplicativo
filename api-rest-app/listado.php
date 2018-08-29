@@ -2,13 +2,16 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-
+include_once 'database.php';
+/*
 $dns = "mysql:host=localhost;dbname=acadspace";
 $user = "root";
-$pass = "";
+$pass = "";*/
 
 try {
-	$con = new PDO($dns, $user, $pass);
+  $database = new Database();
+  $con = $database->getConnection();
+	//$con = new PDO($dns, $user, $pass);
 
 	if(!$con){
 		echo "No se puede conectar a la base de datos";
