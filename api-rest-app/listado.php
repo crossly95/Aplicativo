@@ -10,7 +10,7 @@ $pass = "";*/
 
 try {
   $database = new Database();
-  $con = $database->getConnection();
+  $con = $database->getConnection("acadspace");
 	//$con = new PDO($dns, $user, $pass);
 
 	if(!$con){

@@ -3,13 +3,13 @@ class Database{
 
     // specify your own database credentials
     private $host = "localhost";
-    private $db_name = "acadspace";
+    private $db_name = "developer";
     private $username = "root";
     private $password = "";
     public $conn;
 
     // get the database connection
-    public function getConnection(){
+    public function getConnection($dn_name){
 
         $this->conn = null;
 

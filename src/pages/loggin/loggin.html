@@ -8,19 +8,22 @@
   <ion-title>
     ACADSPACE v2.0
   </ion-title>
-  <ion-item>
-    <ion-label color="primary" stacked>Correo electronico</ion-label>
-    <ion-input type="email" [(ngModel)]="user" placeholder="Email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary" stacked>Contraseña</ion-label>
-    <ion-input type="password" [(ngModel)]="pass" placeholder="Password"></ion-input>
-  </ion-item>
-  <div  id="button">
-    <ion-row>
-      <ion-col width-50 style="text-align: center">
-        <button ion-button round outline (click)="Ingreso_loggin()">Ingresar</button>
-      </ion-col>
-    </ion-row>
-  </div>
+  <form #f="ngForm" (ngSubmit)="verificar(f)">
+    <ion-item>
+      <ion-label color="primary" stacked>Correo electronico</ion-label>
+      <ion-input type="email" name="user" [(ngModel)]="user" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Contraseña</ion-label>
+      <ion-input type="password" name="pass" [(ngModel)]="pass" placeholder="Password"></ion-input>
+    </ion-item>
+    <div id="button">
+      <ion-row>
+        <ion-col width-50 style="text-align: center">
+          <button ion-button round outline>Ingresar</button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </form>
 </ion-content>

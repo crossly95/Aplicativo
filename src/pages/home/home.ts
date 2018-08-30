@@ -16,9 +16,8 @@ export class HomePage {
 
  getDatos(){
    this.serviceProvider.getData().subscribe(
-     data => this.user = data,
+     data => {this.user = data,  console.log(this.user)},
      error => console.log(error)
    );
  }
-
 }

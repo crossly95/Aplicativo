@@ -19,18 +19,19 @@ export class ServiceProvider {
   }
 
   private newMethod(): string {
-    return 'http://192.168.224.105:8680/api-rest-app/';
+    return 'http://192.168.0.20:8680/api-rest-app/';
   }
 
   getData() {
     return this.http.get(this.api + 'listado.php').map(res => res.json())
   }
   Loggin(parans) {
-    let header = new Headers({ 'Content-type': 'application/x-www-from-urlencoded' });
-    return this.http.post(this.api + 'loggin.php', parans, {
-      headers: header,
+    console.log(parans)
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    return this.http.post(this.api + "loggin.php", parans, {
+      headers: headers,
       method: "POST"
-    }).map((res:Response)=>{return res.json()});
+    }).map((res:Response)=>{return res.json();});
   }
 
 }

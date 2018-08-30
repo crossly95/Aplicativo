@@ -16,16 +16,28 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class LogginPage {
 
+
+  users: any[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: ServiceProvider, public alertController: AlertController) {
   }
 
-  verificar(dat){
+  verificar(dat) {
     this.service.Loggin(dat.value).subscribe(
-      data=>{
-        this.showAlert(data.mensaje);
-        this.navCtrl.setRoot(TabsPage);
-      }
-    )
+      data => {this.users = data, console.log(this.users)},
+      error => console.log(error)
+    );
+
+
+  }
+
+  showAlert(men) {
+    const alert = this.alertController.create({
+      title: 'Alerta !',
+      subTitle: men,
+      buttons: ['Entendido']
+    });
+    alert.present();
   }
 
 
