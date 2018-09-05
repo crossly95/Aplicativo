@@ -30,10 +30,10 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         echo "No se puede conectar a la base de datos";
       }
 
-      //$sql = " SELECT email, numbert_document ,username FROM users_udec WHERE email='".$name."' AND numbert_document='".$pass."' ";
+      $sql = " SELECT * FROM users_udec  WHERE email='".$name."' AND number_document='".$pass."' ";
      // $sql = " SELECT numbert_document,username,email FROM users_udec";
 
-      $query = $con->prepare('SELECT number_document,username,email FROM users_udec');
+      $query = $con->prepare($sql);
 
         $query->execute();
 
@@ -45,7 +45,13 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
           }
           $registros .= '{"id": "'.$result["number_document"].'",';
           $registros .= '"name": "'.$result["username"].'",';
-          $registros .= '"price": "'.$result["email"].'"}';
+          $registros .= '"lastname": "'.$result["lastname"].'",';
+          $registros .= '"email": "'.$result["email"].'",';
+          $registros .= '"type_user": "'.$result["type_user"].'",';
+          $registros .= '"place": "'.$result["place"].'",';
+          $registros .= '"number_phone": "'.$result["number_phone"].'",';
+          $registros .= '"company": "'.$result["company"].'",';
+          $registros .= '"code": "'.$result["code"].'"}';
         }
         $registros .= "]";
         echo json_encode($registros);

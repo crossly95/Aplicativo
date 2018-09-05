@@ -19,11 +19,11 @@ export class ServiceProvider {
   }
 
   private newMethod(): string {
-    return 'http://192.168.0.20:8680/api-rest-app/';
+    return 'http://localhost:8680/api-rest-app/';
   }
 
   getData() {
-    return this.http.get(this.api + 'listado.php').map(res => res.json())
+    return this.http.get(this.api + 'listado.php').map(res => res.json());
   }
   Loggin(parans) {
     console.log(parans)

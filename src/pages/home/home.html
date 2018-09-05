@@ -1,25 +1,79 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
-    <ion-buttons start>
+    <ion-title>Inicio</ion-title>
+
+    <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="contact"></ion-icon>
       </button>
     </ion-buttons>
 
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="search"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-card>
-    <ion-card-content *ngFor="let user of user">
-      <h1>{{ user.name }}</h1>
-      <h1>{{ user.price }}</h1>
-    </ion-card-content>
-  </ion-card>
+  <ion-item *ngFor="let user of user">
+    <ion-avatar item-start>
+      <img src="assets/img/perfil.jpg">
+    </ion-avatar>
+    <h2>{{ user.id}}</h2>
+    <p>{{ user.name | uppercase }} {{ user.lastname | uppercase }}</p>
+  </ion-item>
+  <ion-list *ngFor="let user of user">
+    <ion-item>
+      Tipo de usuario
+      <ion-note item-end>
+        {{ user.type_user }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Email
+      <ion-note item-end>
+        {{ user.email | lowercase }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Telefono
+      <ion-note item-end>
+        {{ user.number_phone }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Sede
+      <ion-note item-end>
+        {{ user.place | lowercase }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Codigo
+      <ion-note item-end>
+        {{ user.code }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Compañia
+      <ion-note item-end>
+      {{ user.company | lowercase }}
+      </ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab color="light">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </button>
+    <ion-fab-list side="left">
+      <button ion-fab>
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-googleplus"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 
 </ion-content>

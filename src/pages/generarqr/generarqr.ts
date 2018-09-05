@@ -18,6 +18,7 @@ export class GenerarqrPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = navParams.data.item;
+    console.log(this.item)
   }
 
   ionViewDidLoad() {
