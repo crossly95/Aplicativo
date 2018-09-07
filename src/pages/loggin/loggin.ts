@@ -61,7 +61,7 @@ export class LogginPage {
       console.log('antes : ' + user)
       this.saveDataStorage(user);
     }
-    al.present();
+    //al.present();
   }
 
   alerta(title, user, text, flag) {
@@ -80,7 +80,7 @@ export class LogginPage {
   saveDataStorage(user) {
     this.storage.set('user', user);
   //  this.navCtrl.push(HomePage);
-    this.navCtrl.push(TabsPage);
+    this.navCtrl.setRoot(TabsPage);
   /*  this.storage.get('user').then((val) => {
       //console.log('Your age is', val);
     });*/

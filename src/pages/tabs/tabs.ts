@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
+import { QrgeneratorPage } from '../qrgenerator/qrgenerator';
 import { HomePage } from '../home/home';
 import { ListPage } from '../list/list';
 
@@ -12,7 +12,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  tab3Root = QrgeneratorPage;
   tab4Root = ListPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

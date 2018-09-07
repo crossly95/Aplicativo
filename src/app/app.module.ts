@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 
 import { LogginPage } from '../pages/loggin/loggin';
 import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
+import { QrgeneratorPage } from '../pages/qrgenerator/qrgenerator';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { GenerarqrPage } from '../pages/generarqr/generarqr';
@@ -19,13 +19,14 @@ import { ServiceProvider } from '../providers/service/service-provider';
 import { HttpModule} from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 //import { ServiceProvider } from '../providers/service/service';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
-    ContactPage,
+    QrgeneratorPage,
     HomePage,
     ListPage,
     GenerarqrPage,
@@ -36,6 +37,7 @@ import { IonicStorageModule } from '@ionic/storage';
     BrowserModule,
     HttpModule,
     HttpClientModule,
+    NgxQRCodeModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
@@ -43,7 +45,7 @@ import { IonicStorageModule } from '@ionic/storage';
   entryComponents: [
     MyApp,
     AboutPage,
-    ContactPage,
+    QrgeneratorPage,
     HomePage,
     ListPage,
     GenerarqrPage,
