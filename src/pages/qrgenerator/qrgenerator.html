@@ -15,13 +15,14 @@
       Presione el boton para generar el codigo QR de acceso a los laboratorios.
     </ion-card-content>
   </ion-card>
-  <button ion-button full icon-left (click)="createCode()">
-    <ion-icon name="barcode"></ion-icon>Generar QR
-  </button>
   <ion-card *ngIf="createdCode">
     <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
     <ion-card-content>
       <p>Cadena: {{ createdCode }}</p>
     </ion-card-content>
   </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab mini (click)="createCode()"><ion-icon name="ios-repeat-outline"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>

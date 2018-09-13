@@ -16,6 +16,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-loggin',
   templateUrl: 'loggin.html',
+
 })
 export class LogginPage {
 
@@ -25,14 +26,23 @@ export class LogginPage {
   pass: string;
 
   constructor(private storage: Storage, public http: HttpClientModule, public navCtrl: NavController, public navParams: NavParams, public service: ServiceProvider, public alertController: AlertController) {
+    this.storage.get('usercodeqr').then(value => {
+      if (value) {
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
+
+
   }
 
   verificar(dat) {
+
+    console.log("loggin: "+ dat)
     if (this.user == null || this.pass == null) {
       this.showAlert('Error', 'Compruebe los campos', 'volver', false);
     }
     else {
-      this.service.Loggin(dat.value).subscribe(
+      this.service.Loggin(dat.value.user,dat.value.pass).subscribe(
         data => {
           this.users = data;
           console.log('JSON ANTES:'+ data);
@@ -42,6 +52,7 @@ export class LogginPage {
             this.showAlert('Bienvenido', data, 'Seguir', true);
           }
           else {
+            console.log('USUARIO INCORRECTO');
             this.showAlert('Error', 'Usuario o contraseña incorrecta', 'volver', false);
           }
 
@@ -61,6 +72,9 @@ export class LogginPage {
       console.log('antes : ' + user)
       this.saveDataStorage(user);
     }
+    else{
+      al.present();
+    }
     //al.present();
   }
 
@@ -78,12 +92,10 @@ export class LogginPage {
   }
  //GUARDAR DATOS EN STORAGE
   saveDataStorage(user) {
-    this.storage.set('user', user);
-  //  this.navCtrl.push(HomePage);
-    this.navCtrl.setRoot(TabsPage);
-  /*  this.storage.get('user').then((val) => {
-      //console.log('Your age is', val);
-    });*/
+    console.log("STORAGE LOGGIN:" + JSON.parse(user))
+    this.storage.set('usercodeqr', user);
+    this.navCtrl.setRoot(HomePage);
+
 
   }
 

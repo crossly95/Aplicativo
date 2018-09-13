@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin:*");
 header("Content-Type: application/x-www-form-urlencoded");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
@@ -14,14 +14,16 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     $objData = json_decode($data);
 
     // ASIGNAR LOS VALORES A LA VARIABLE
-    $name = $objData->user;
+    $id = $objData->id;
+    $hash = $objData->hash;
     $token = $objData->token;
-    $pass = $objData->pass;
+    $fecha = $objData->fecha;
 
     // lIMPIAR LOS DATOS
-    $name = stripslashes($name);
+    $id = stripslashes($id);
+    $hash = stripslashes($hash);
     $token = stripslashes($token);
-    $pass = stripslashes($pass);
+    $fecha = stripslashes($fecha);
 
     if($token == 'abc479f4-eb76-494d-9873-5191c3ac5e9d'){
       try {
@@ -32,7 +34,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
           echo "No se puede conectar a la base de datos";
         }
 
-        $sql = " SELECT * FROM users_udec  WHERE email='".$name."' AND number_document='".$pass."' ";
+        $sql = " SELECT * FROM users_udec  WHERE number_document='".$id."' AND company='".$hash."' ";
        // $sql = " SELECT numbert_document,username,email FROM users_udec";
 
         $query = $con->prepare($sql);
@@ -40,6 +42,8 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
           $query->execute();
 
           $registros = "[";
+          $result = $query->fetch();
+
 
           while($result = $query->fetch()){
             if ($registros != "[") {
@@ -63,9 +67,9 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
       } catch (Exception $e) {
         echo "Erro: ". $e->getMessage();
       };
+
     }
-
-
+  ?>
 
 
 

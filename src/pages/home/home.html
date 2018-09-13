@@ -17,18 +17,19 @@
     </ion-avatar>
     <h2>{{ user.id}}</h2>
     <p>{{ user.name | uppercase }} {{ user.lastname | uppercase }}</p>
+    <button ion-button small outline (click)="showPrompt(user)">Editar</button>
   </ion-item>
   <ion-list *ngFor="let user of user">
     <ion-item>
-      Tipo de usuario
+      T. Usuario
       <ion-note item-end>
-        {{ user.type_user }}
+          {{ user.type_user }}
       </ion-note>
     </ion-item>
     <ion-item>
       Email
       <ion-note item-end>
-        {{ user.email | lowercase }}
+          {{ user.email | lowercase }}
       </ion-note>
     </ion-item>
     <ion-item>
@@ -40,7 +41,7 @@
     <ion-item>
       Sede
       <ion-note item-end>
-        {{ user.place | lowercase }}
+          {{ user.place | lowercase }}
       </ion-note>
     </ion-item>
     <ion-item>
@@ -52,28 +53,28 @@
     <ion-item>
       Compañia
       <ion-note item-end>
-      {{ user.company | lowercase }}
+        {{ user.company | lowercase }}
       </ion-note>
     </ion-item>
   </ion-list>
-  <ion-fab right bottom>
-    <button ion-fab color="light">
-      <ion-icon name="arrow-dropleft"></ion-icon>
+  <ion-fab left bottom>
+    <button ion-fab color="dark">
+      <ion-icon name="arrow-dropup"></ion-icon>
     </button>
-    <ion-fab-list side="left">
-      <button ion-fab>
-        <ion-icon name="logo-facebook"></ion-icon>
-      </button>
-      <button ion-fab>
-        <ion-icon name="logo-twitter"></ion-icon>
-      </button>
-      <button ion-fab>
-        <ion-icon name="logo-vimeo"></ion-icon>
-      </button>
-      <button ion-fab>
-        <ion-icon name="logo-googleplus"></ion-icon>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="logout()">
+        <ion-icon ios="md-walk" md="md-walk"></ion-icon>
       </button>
     </ion-fab-list>
   </ion-fab>
-
+  <ion-fab right bottom>
+    <button ion-fab mini (click)="pageQR()">
+      <ion-icon name="md-contract"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title center>ACADSPACE v2.0</ion-title>
+  </ion-toolbar>
+</ion-footer>
