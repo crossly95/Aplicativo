@@ -40,13 +40,14 @@ export class ServiceProvider {
   }
 
   validarQR(id, hash){
+    var localISOTime = (new Date(Date.now())).toISOString().slice(0, -1);
+    localISOTime = localISOTime.replace('T', ' ');
     var cadena = {
       id: id,
       hash: hash,
+      fecha: localISOTime,
       token:'abc479f4-eb76-494d-9873-5191c3ac5e9d'
     }
-    var localISOTime = (new Date(Date.now())).toISOString().slice(0, -1);
-    localISOTime = localISOTime.replace('T', ' ');
     console.log(localISOTime)
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     return this.http.post(this.api + "validarqr.php", JSON.stringify(cadena), {
@@ -65,7 +66,7 @@ export class ServiceProvider {
       fecha: localISOTime,
       token:'abc479f4-eb76-494d-9873-5191c3ac5e9d'
     }
-    console.log(localISOTime)
+    console.log("HORA : "+localISOTime)
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     return this.http.post(this.api + "insertar.php", JSON.stringify(cadena), {
       headers: headers,

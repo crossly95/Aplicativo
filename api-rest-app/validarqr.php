@@ -23,7 +23,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     $id = stripslashes($id);
     $hash = stripslashes($hash);
     $token = stripslashes($token);
-    $fecha = stripslashes($fecha);
+    //$fecha = stripslashes($fecha);
 
     if($token == 'abc479f4-eb76-494d-9873-5191c3ac5e9d'){
       try {
@@ -34,33 +34,33 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
           echo "No se puede conectar a la base de datos";
         }
 
-        $sql = " SELECT * FROM users_udec  WHERE number_document='".$id."' AND company='".$hash."' ";
+        $flag;
+
+        $sql = " SELECT * FROM users_udec  WHERE company ='".$hash."' AND number_document='".$id."' ";
        // $sql = " SELECT numbert_document,username,email FROM users_udec";
 
         $query = $con->prepare($sql);
 
           $query->execute();
 
-          $registros = "[";
-          $result = $query->fetch();
-
 
           while($result = $query->fetch()){
-            if ($registros != "[") {
-              $registros .= ",";
+            if($result == null){
+              $flag = true;
             }
-            $registros .= '{"id": "'.$result["number_document"].'",';
-            $registros .= '"name": "'.$result["username"].'",';
-            $registros .= '"lastname": "'.$result["lastname"].'",';
-            $registros .= '"email": "'.$result["email"].'",';
-            $registros .= '"type_user": "'.$result["type_user"].'",';
-            $registros .= '"place": "'.$result["place"].'",';
-            $registros .= '"number_phone": "'.$result["number_phone"].'",';
-            $registros .= '"company": "'.$result["company"].'",';
-            $registros .= '"code": "'.$result["code"].'"}';
+            else{
+              if(substr($fecha, 0, -13) == substr($result["updated_at"], 0, -9)){
+                $flag = false;
+              }
+              else{
+                $flag = true;
+              }
+
+
+            }
           }
-          $registros .= "]";
-          echo json_encode($registros);
+
+          echo json_encode($flag);
 
 
 

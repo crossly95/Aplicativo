@@ -16,6 +16,7 @@ export class QrgeneratorPage {
   qrData = null;
   createdCode = null;
   user: any[];
+  flag;
 
 
 
@@ -27,19 +28,9 @@ export class QrgeneratorPage {
       if (value) {
         this.storage.get('codeqr').then(value => {
           if (value) {
-            this.storage.get('codeqr').then((val) => {
-              var flag = this.validarQR(val[0].id, val[0].codigo);
-              if (flag) {
-                // GENERAR DE NUEVO
-                this.presentToast('Su codigo ya no es valido, por favor generar de nuevo');
-                this.storage.remove('codeqr');
-              }
-              else {
-                // NO GENERAR DE NUEVO
-                this.getDatosUser(val, flag);
-              }
+            var us = JSON.parse(value);
+            this.validarQR(us.id, us.codigo,us);
 
-            });
           }
           else {
             this.presentToast('Genere su cofigo por favor !');
@@ -68,6 +59,7 @@ export class QrgeneratorPage {
       this.storage.get('usercodeqr').then((val) => {
         this.user = JSON.parse(val);
         var hash = Md5.init((new Date(Date.now())).toISOString().slice(0, -1));
+        console.log(this.user[0].id)
         this.qrData = this.user[0].id + '|' + '1' + '|' + '2' + '|' + '2' + '|' + hash;
         this.createdCode = this.qrData;
         this.setData(this.user[0].id, hash);
@@ -80,7 +72,7 @@ export class QrgeneratorPage {
       });
     }
     else {
-      this.qrData = code[0].id + '|' + '1' + '|' + '2' + '|' + '2' + '|' + code[0].codigo;
+      this.qrData = code.id + '|' + '1' + '|' + '2' + '|' + '2' + '|' + code.codigo;
       this.createdCode = this.qrData;
       this.presentToast('Su codigo aun es valido, acerque el dispositivo al lector QR');
 
@@ -88,10 +80,27 @@ export class QrgeneratorPage {
 
   }
 
-  validarQR(id, codigo) {
-    var flag = false;
+  validarQR(id, codigo,us) {
+    this.service.validarQR(id, codigo).subscribe(
+      data => {
+        var obj = JSON.parse(data);
+        console.log("VERIFICACION QR: "+obj )
+        this.flag = obj;
+        if (this.flag) {
+          // GENERAR DE NUEVO
+          this.presentToast('Su codigo ya no es valido, por favor generar de nuevo');
+          this.storage.remove('codeqr');
+        }
+        else {
+          // NO GENERAR DE NUEVO
+          console.log("NO GENERAR : " + us.id + us.codigo)
+          this.getDatosUser(us, this.flag);
+        }
 
-    return flag;
+      },
+      error => console.log(error)
+    );
+
   }
 
   setData(id, hash) {
@@ -105,6 +114,7 @@ export class QrgeneratorPage {
   }
 
   saveDataStorage(codigoqr) {
+    console.log("DATOS A GUARDAR QR : "+ JSON.stringify(codigoqr))
     codigoqr = JSON.stringify(codigoqr);
     this.storage.set('codeqr', codigoqr);
 
@@ -113,9 +123,9 @@ export class QrgeneratorPage {
   presentToast(mensaje) {
     const toast = this.toastCtrl.create({
       message: mensaje,
-      showCloseButton: true,
       position: 'top',
-      closeButtonText: 'Ok'
+      duration: 1500
+
     });
     toast.present();
   }

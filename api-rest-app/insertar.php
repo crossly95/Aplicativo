@@ -16,6 +16,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
     // ASIGNAR LOS VALORES A LA VARIABLE
     $hash = $objData->hash;
+    $fecha = $objData->fecha;
     $token = $objData->token;
     $id = $objData->id;
 
@@ -32,7 +33,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         if(!$con){
           echo "No se puede conectar a la base de datos";
         }
-        $sql = " UPDATE users_udec SET company ='".$hash."' WHERE number_document = ".$id;
+        $sql = " UPDATE users_udec SET company ='".$hash."', updated_at = '".$fecha."' WHERE number_document = ".$id;
        // $sql = " SELECT numbert_document,username,email FROM users_udec";
 
         $query = $con->prepare($sql);

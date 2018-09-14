@@ -84,7 +84,7 @@ export class HomePage {
               this.serviceProvider.updateData(update.id, telefono, email, codigo).subscribe(
                 data => {
                   this.refrescarData();
-                  this.getDatosUser(false);
+                  this.presentLoading();
                 },
                 error => console.log(error)
               );
@@ -132,7 +132,7 @@ export class HomePage {
   }
 
   logout() {
-    this.storage.clear();
+    this.storage.remove('usercodeqr');
     this.navCtrl.setRoot(LogginPage);
   }
   pageQR() {
@@ -145,8 +145,8 @@ export class HomePage {
       console.log("GUARDAR UPDATE :" + us[0].id)
       this.serviceProvider.Loggin(us[0].email, us[0].id).subscribe(
         data => {
+          this.user = JSON.parse(data);
           console.log("TRAEER INFO : "+data)
-          this.storage.clear();
           this.saveDataStorage(data);
 
         },
@@ -157,7 +157,8 @@ export class HomePage {
   }
 
   saveDataStorage(user) {
-    console.log("STORAGE LOGGIN:" + user)
+    this.storage.clear();
+    console.log("STORAGE ACTUALIZAR:" + user)
     this.storage.set('usercodeqr', user);
     //this.navCtrl.setRoot(HomePage);
   }
