@@ -29,11 +29,11 @@ export class QrgeneratorPage {
         this.storage.get('codeqr').then(value => {
           if (value) {
             var us = JSON.parse(value);
-            this.validarQR(us.id, us.codigo,us);
+            this.validarQR(us.id, us.codigo, us);
 
           }
           else {
-            this.presentToast('Genere su cofigo por favor !');
+            this.presentToast('Genere su codigo por favor !');
           }
 
         });
@@ -59,13 +59,13 @@ export class QrgeneratorPage {
       this.storage.get('usercodeqr').then((val) => {
         this.user = JSON.parse(val);
         var hash = Md5.init((new Date(Date.now())).toISOString().slice(0, -1));
-        console.log(this.user[0].id)
-        this.qrData = this.user[0].id + '|' + '1' + '|' + '2' + '|' + '2' + '|' + hash;
+        console.log(this.user[0].number_document)
+        this.qrData = this.user[0].number_document + '|' + '1' + '|' + '2' + '|' + '2' + '|' + hash;
         this.createdCode = this.qrData;
-        this.setData(this.user[0].id, hash);
+        this.setData(this.user[0].number_document, hash);
         var codigoqr = {
           codigo: hash,
-          id: this.user[0].id
+          id: this.user[0].number_document
         }
         this.saveDataStorage(codigoqr);
         this.presentToast('Codigo generado, acerque el dispositivo al lector QR');
@@ -81,6 +81,7 @@ export class QrgeneratorPage {
   }
 
   validarQR(id, codigo,us) {
+    console.log("VERIFICAR : "+id+codigo+us)
     this.service.validarQR(id, codigo).subscribe(
       data => {
         var obj = JSON.parse(data);

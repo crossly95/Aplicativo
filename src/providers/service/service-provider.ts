@@ -19,11 +19,19 @@ export class ServiceProvider {
   }
 
   private newMethod(): string {
-    return 'http://localhost:8680/api-rest-app/';
+    return 'http://127.0.0.1:8000/api';
   }
 
   getData() {
-    return this.http.get(this.api + 'listado.php').map(res => res.json());
+    let headers = new Headers({ 'Content-Type': 'x-requested-with' });
+    console.log(this.http.post('http://127.0.0.1:8000/api/pokemons', {
+      headers: headers,
+      method: "POST"
+    }).map((res: Response) => { return res.json(); }))
+    return this.http.post('http://127.0.0.1:8000/api/pokemons', {
+      headers: headers,
+      method: "POST"
+    }).map((res: Response) => { return res.json(); });
   }
   Loggin(user,pass) {
     var loggin = {
@@ -32,8 +40,8 @@ export class ServiceProvider {
       token : 'abc479f4-eb76-494d-9873-5191c3ac5e9d'
     }
     console.log("DATOS SESSION :" + user + pass)
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    return this.http.post(this.api + "loggin.php", JSON.stringify(loggin), {
+    let headers = new Headers({ 'Content-Type': 'x-requested-with' });
+    return this.http.post(this.api + "/pokemons/"+ JSON.stringify(loggin), {
       headers: headers,
       method: "POST"
     }).map((res: Response) => { return res.json(); });
@@ -49,8 +57,8 @@ export class ServiceProvider {
       token:'abc479f4-eb76-494d-9873-5191c3ac5e9d'
     }
     console.log(localISOTime)
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    return this.http.post(this.api + "validarqr.php", JSON.stringify(cadena), {
+    let headers = new Headers({  'Content-Type': 'x-requested-with'  });
+    return this.http.post(this.api + "/pokemons/validarqr/" + JSON.stringify(cadena), {
       headers: headers,
       method: "POST"
     }).map((res: Response) => { return res.json(); });
@@ -67,8 +75,8 @@ export class ServiceProvider {
       token:'abc479f4-eb76-494d-9873-5191c3ac5e9d'
     }
     console.log("HORA : "+localISOTime)
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    return this.http.post(this.api + "insertar.php", JSON.stringify(cadena), {
+    let headers = new Headers({  'Content-Type': 'x-requested-with'  });
+    return this.http.post(this.api + "/pokemons/setqr/" + JSON.stringify(cadena), {
       headers: headers,
       method: "POST"
     }).map((res: Response) => { return res.json(); });
@@ -82,8 +90,8 @@ export class ServiceProvider {
       codigo: codigo,
       token : 'abc479f4-eb76-494d-9873-5191c3ac5e9d'
     }
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    return this.http.post(this.api + "modificar.php",JSON.stringify(params), {
+    let headers = new Headers({ 'Content-Type': 'x-requested-with' });
+    return this.http.post(this.api + "/pokemons/modificardatos/" + JSON.stringify(params), {
       headers: headers,
       method: "POST"
     }).map((res: Response) => { return res.json(); });

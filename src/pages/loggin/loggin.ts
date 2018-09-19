@@ -32,7 +32,6 @@ export class LogginPage {
       }
     });
 
-
   }
 
   verificar(dat) {
@@ -80,7 +79,7 @@ export class LogginPage {
 
   alerta(title, user, text, flag) {
     if (flag) {
-      user = user[0].name + ' '+ user[0].lastname;
+      user = user[0].username + ' '+ user[0].lastname;
 
     }
     const alert = this.alertController.create({

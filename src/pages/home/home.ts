@@ -38,11 +38,6 @@ export class HomePage {
       message: "",
       inputs: [
         {
-          name: 'email',
-          placeholder: update.email,
-          value: update.email
-        },
-        {
           name: 'telefono',
           placeholder: update.number_phone,
           value: update.number_phone
@@ -63,10 +58,10 @@ export class HomePage {
         {
           text: 'Guardar',
           handler: data => {
-            let email = data.email;
+            let email = update.email;
             let telefono = data.telefono;
             let codigo = data.codigo;
-            console.log("VARIABLES : " + update.id + email + telefono + codigo)
+            console.log("VARIABLES : " + update.number_document + email + telefono + codigo)
             if (email.length == 0 && telefono.length == 0 && codigo.length == 0) {
               var al = this.alerta('ERROR', 'Campos vacios', 'Volver', false);
               al.present();
@@ -81,8 +76,9 @@ export class HomePage {
               if (codigo.length == 0) {
                 codigo = update.code;
               }
-              this.serviceProvider.updateData(update.id, telefono, email, codigo).subscribe(
+              this.serviceProvider.updateData(update.number_document, telefono, email, codigo).subscribe(
                 data => {
+                  console.log(data)
                   this.refrescarData();
                   this.presentLoading();
                 },
@@ -112,7 +108,7 @@ export class HomePage {
 
   alerta(title, user, text, flag) {
     if (flag) {
-      user = user[0].name + ' ' + user[0].lastname;
+      user = user[0].username + ' ' + user[0].lastname;
 
     }
     const alert = this.alertController.create({
@@ -133,6 +129,7 @@ export class HomePage {
 
   logout() {
     this.storage.remove('usercodeqr');
+    //this.storage.remove('codeqr');
     this.navCtrl.setRoot(LogginPage);
   }
   pageQR() {
@@ -142,8 +139,8 @@ export class HomePage {
   refrescarData() {
     this.storage.get('usercodeqr').then((val) => {
       var us = JSON.parse(val);
-      console.log("GUARDAR UPDATE :" + us[0].id)
-      this.serviceProvider.Loggin(us[0].email, us[0].id).subscribe(
+      console.log("GUARDAR UPDATE :" + us[0].number_document)
+      this.serviceProvider.Loggin(us[0].email, us[0].number_document).subscribe(
         data => {
           this.user = JSON.parse(data);
           console.log("TRAEER INFO : "+data)
@@ -160,6 +157,7 @@ export class HomePage {
     this.storage.clear();
     console.log("STORAGE ACTUALIZAR:" + user)
     this.storage.set('usercodeqr', user);
+    //this.storage.set('codeqr', user);
     //this.navCtrl.setRoot(HomePage);
   }
 
