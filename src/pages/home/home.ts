@@ -40,12 +40,14 @@ export class HomePage {
         {
           name: 'telefono',
           placeholder: update.number_phone,
-          value: update.number_phone
+          value: update.number_phone,
+          type: 'number'
         },
         {
           name: 'codigo',
           placeholder: update.code,
-          value: update.code
+          value: update.code,
+          type: 'number'
         }
       ],
       buttons: [
@@ -61,31 +63,43 @@ export class HomePage {
             let email = update.email;
             let telefono = data.telefono;
             let codigo = data.codigo;
-            console.log("VARIABLES : " + update.number_document + email + telefono + codigo)
-            if (email.length == 0 && telefono.length == 0 && codigo.length == 0) {
-              var al = this.alerta('ERROR', 'Campos vacios', 'Volver', false);
-              al.present();
-            }
-            else {
-              if (email.length == 0) {
-                email = update.email;
-              }
-              if (telefono.length == 0) {
-                telefono = update.number_phone;
-              }
-              if (codigo.length == 0) {
-                codigo = update.code;
-              }
-              this.serviceProvider.updateData(update.number_document, telefono, email, codigo).subscribe(
-                data => {
-                  console.log(data)
-                  this.refrescarData();
-                  this.presentLoading();
-                },
-                error => console.log(error)
-              );
+            if (telefono.length > 12 || codigo.length > 12) {
+              this.showPrompt(update);
+              var al2 = this.alerta('ERROR', 'Los datos exceden el limite de 12 caracteres', 'Volver', false);
+              al2.present();
 
             }
+            else {
+              console.log("VARIABLES : " + update.number_document + email + telefono + codigo)
+              if (email.length == 0 || telefono.length == 0 || codigo.length == 0) {
+                this.showPrompt(update);
+                var al = this.alerta('ERROR', 'Campos vacios', 'Volver', false);
+                al.present();
+
+              }
+              else {
+                if (email.length == 0) {
+                  email = update.email;
+                }
+                if (telefono.length == 0) {
+                  telefono = update.number_phone;
+                }
+                if (codigo.length == 0) {
+                  codigo = update.code;
+                }
+                this.serviceProvider.updateData(update.number_document, telefono, email, codigo).subscribe(
+                  data => {
+                    console.log(data)
+                    this.refrescarData();
+                    this.presentLoading();
+                  },
+                  error => console.log(error)
+                );
+
+              }
+
+            }
+
 
           }
         }
@@ -143,7 +157,7 @@ export class HomePage {
       this.serviceProvider.Loggin(us[0].email, us[0].number_document).subscribe(
         data => {
           this.user = JSON.parse(data);
-          console.log("TRAEER INFO : "+data)
+          console.log("TRAEER INFO : " + data)
           this.saveDataStorage(data);
 
         },
