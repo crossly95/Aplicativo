@@ -1,0 +1,11 @@
+Ruta api : https://cit-udec.com/api 
+
+Consultas :      - Loggin ( correo, password : cedula )
+                 - consultar () -> datos de usuario
+                 - valdarQR (storage) -> boolean
+                 - crearQR (storage) -> boolean
+
+
+
+ 
+

@@ -9,7 +9,7 @@ import { QrgeneratorPage } from '../pages/qrgenerator/qrgenerator';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { GenerarqrPage } from '../pages/generarqr/generarqr';
-import { TabsPage } from '../pages/tabs/tabs';
+//import { TabsPage } from '../pages/tabs/tabs';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -31,7 +31,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ListPage,
     GenerarqrPage,
     LogginPage,
-    TabsPage
+    //TabsPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +50,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ListPage,
     GenerarqrPage,
     LogginPage,
-    TabsPage
+    //TabsPage
   ],
   providers: [
     ServiceProvider,

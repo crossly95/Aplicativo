@@ -19,7 +19,7 @@ export class ServiceProvider {
   }
 
   private newMethod(): string {
-    return 'http://127.0.0.1:8000/api';
+    return 'https://cit-udec.com/api';
   }
 
   getData() {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service-provider';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 import { HomePage } from '../home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
